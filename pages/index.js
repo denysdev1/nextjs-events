@@ -1,8 +1,10 @@
 import EventList from "../components/events/EventList";
-import { getFeaturedEvents } from "../dummy-data";
+import { getFeaturedEvents } from "../helpers/api";
 
-const HomePage = () => {
-  const featuredEvents = getFeaturedEvents();
+const HomePage = ({ featuredEvents }) => {
+  if (!featuredEvents) {
+    return <p>No data yet</p>;
+  }
 
   return (
     <>
@@ -12,3 +14,9 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+export const getStaticProps = async () => {
+  const featuredEvents = await getFeaturedEvents();
+
+  return { props: { featuredEvents }, revalidate: 1800 };
+};
