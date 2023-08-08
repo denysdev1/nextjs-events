@@ -5,9 +5,9 @@ const HomePage = () => {
   const featuredEvents = getFeaturedEvents();
 
   return (
-    <div>
+    <>
       <EventList events={featuredEvents} />
-    </div>
+    </>
   );
 };
 
