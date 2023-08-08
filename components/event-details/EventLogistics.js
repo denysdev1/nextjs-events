@@ -1,22 +1,23 @@
-import AddressIcon from '../icons/AddressIcon';
-import DateIcon from '../icons/DateIcon';
-import LogisticsItem from './LogisticsItem';
-import classes from './EventLogistics.module.css';
+import AddressIcon from "../icons/AddressIcon";
+import DateIcon from "../icons/DateIcon";
+import LogisticsItem from "./LogisticsItem";
+import classes from "./EventLogistics.module.css";
+import Image from "next/image";
 
 function EventLogistics(props) {
   const { date, address, image, imageAlt } = props;
 
-  const humanReadableDate = new Date(date).toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   });
-  const addressText = address.replace(', ', '\n');
+  const addressText = address.replace(", ", "\n");
 
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img src={`/${image}`} alt={imageAlt} />
+        <Image src={`/${image}`} alt={imageAlt} width={1000} height={1000} />
       </div>
       <ul className={classes.list}>
         <LogisticsItem icon={DateIcon}>

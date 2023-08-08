@@ -5,9 +5,6 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      <Head>
-        <title>Events App</title>
-      </Head>
       <Component {...pageProps} />
     </Layout>
   );

@@ -5,6 +5,7 @@ import ResultsTitle from "../../components/events/ResultsTitle";
 import Button from "../../components/ui/Button";
 import ErrorAlert from "../../components/ui/ErrorAlert";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const FilteredEvents = () => {
   const [loadedEvents, setLoadedEvents] = useState();
@@ -29,12 +30,30 @@ const FilteredEvents = () => {
   }, [data]);
 
   if (!loadedEvents) {
-    return <p className="center">Loading...</p>;
+    return (
+      <>
+        <Head>
+          <title>Filtered Events</title>
+          <meta name="description" content="A list of filtered events" />
+        </Head>
+        <p className="center">Loading...</p>
+      </>
+    );
   }
 
   const [year, month] = filterData;
   const numYear = +year;
   const numMonth = +month;
+
+  const headContent = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${numYear}/${numMonth}`}
+      />
+    </Head>
+  );
 
   if (
     isNaN(numYear) ||
@@ -47,6 +66,7 @@ const FilteredEvents = () => {
   ) {
     return (
       <>
+        {headContent}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -69,11 +89,13 @@ const FilteredEvents = () => {
 
   return filteredEvents.length ? (
     <>
+      {headContent}
       <ResultsTitle date={eventDate} />
       <EventList events={filteredEvents} />
     </>
   ) : (
     <>
+      {headContent}
       <ErrorAlert>
         <p>No events found for the chosen filter!</p>
       </ErrorAlert>

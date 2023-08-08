@@ -1,8 +1,8 @@
 import EventSummary from "../../components/event-details/EventSummary";
 import EventLogistics from "../../components/event-details/EventLogistics";
 import EventContent from "../../components/event-details/EventContent";
-import ErrorAlert from "../../components/ui/ErrorAlert";
 import { getEventById, getFeaturedEvents } from "../../helpers/api";
+import Head from "next/head";
 
 const EventDetails = ({ event }) => {
   if (!event) {
@@ -15,6 +15,13 @@ const EventDetails = ({ event }) => {
 
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve..."
+        />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
