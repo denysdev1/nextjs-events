@@ -11,6 +11,8 @@
   text-align: center;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
   color: white;
+  z-index: 1;
+  position: relative;
 }
 
 @media (min-width: 768px) {

@@ -9,7 +9,7 @@
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: white;
   font-family: "Fira", sans-serif;
   height: 100%;
@@ -28,6 +28,12 @@
   text-decoration: none;
   color: #74dacc;
   font-size: 1rem;
+}
+
+@media (min-width: 400px) {
+  .logo {
+    font-size: 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {

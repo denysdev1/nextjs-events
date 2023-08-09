@@ -23,7 +23,7 @@ export const getEventById = async (id) => {
   const response = await fetch(BASE_URL + `events/${id}.json`);
   const data = await response.json();
 
-  return data;
+  return { id, ...data };
 };
 
 export const getFilteredEvents = async (dateFilter) => {
