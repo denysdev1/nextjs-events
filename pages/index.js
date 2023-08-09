@@ -1,5 +1,6 @@
 import Head from "next/head";
 import EventList from "../components/events/EventList";
+import { NewsletterRegistration } from '../components/input/NewsletterRegistration';
 import { getFeaturedEvents } from "../helpers/api";
 
 const HomePage = ({ featuredEvents }) => {
@@ -11,8 +12,12 @@ const HomePage = ({ featuredEvents }) => {
     <>
       <Head>
         <title>Events App</title>
-        <meta name="description" content="Find a lot of great events that allow you to evolve..." />
+        <meta
+          name="description"
+          content="Find a lot of great events that allow you to evolve..."
+        />
       </Head>
+      <NewsletterRegistration />
       <EventList events={featuredEvents} />
     </>
   );

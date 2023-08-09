@@ -2,6 +2,7 @@ import EventSummary from "../../components/event-details/EventSummary";
 import EventLogistics from "../../components/event-details/EventLogistics";
 import EventContent from "../../components/event-details/EventContent";
 import { getEventById, getFeaturedEvents } from "../../helpers/api";
+import { Comments } from "../../components/input/Comments";
 import Head from "next/head";
 
 const EventDetails = ({ event }) => {
@@ -32,6 +33,7 @@ const EventDetails = ({ event }) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };
@@ -42,12 +44,12 @@ export const getStaticProps = async (context) => {
   const { id } = context.params;
   const event = await getEventById(id);
 
-  return { props: { event } };
+  return { props: { event }, revalidate: 30 };
 };
 
 export const getStaticPaths = async () => {
   const events = await getFeaturedEvents();
   const paths = events.map((event) => ({ params: { id: event.id } }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: "blocking" };
 };
