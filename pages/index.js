@@ -16,6 +16,7 @@ const HomePage = ({ featuredEvents }) => {
           name="description"
           content="Find a lot of great events that allow you to evolve..."
         />
+        <link rel="icon" href="/favicon.png" sizes="any" />
       </Head>
       <NewsletterRegistration />
       <EventList events={featuredEvents} />
