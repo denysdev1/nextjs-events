@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CommentList } from "./CommentList";
 import { NewComment } from "./NewComment";
 import classes from "./Comments.module.css";
 import axios from "axios";
+import { NotificationContext } from "../../store/notificationContext";
 
 export const Comments = ({ eventId }) => {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { showNotification } = useContext(NotificationContext);
 
   useEffect(() => {
     const getComments = async () => {
+      setIsLoading(true);
+
       try {
         const { data } = await axios.get(`../api/comments/${eventId}`);
 
@@ -17,6 +22,8 @@ export const Comments = ({ eventId }) => {
       } catch {
         throw new Error("Couldn't fetch comments.");
       }
+
+      setIsLoading(false);
     };
 
     if (showComments) {
@@ -31,8 +38,15 @@ export const Comments = ({ eventId }) => {
   const addCommentHandler = async (commentData) => {
     try {
       await axios.post(`../api/comments/${eventId}`, commentData);
+      setComments((prevComments) => [commentData, ...prevComments]);
     } catch {
-      throw new Error("Couldn't add new commment"); 
+      showNotification({
+        title: "Error!",
+        message: "Couldn't add new comment!",
+        status: "error",
+      });
+
+      throw new Error("Couldn't add new comment");
     }
   };
 
@@ -41,8 +55,17 @@ export const Comments = ({ eventId }) => {
       <button onClick={toggleCommentsHandler}>
         {showComments ? "Hide" : "Show"} Comments
       </button>
-      {showComments && <NewComment handleAddComment={addCommentHandler} setComments={setComments} />}
-      {showComments && <CommentList comments={comments} />}
+      {showComments && (
+        <NewComment
+          handleAddComment={addCommentHandler}
+          setComments={setComments}
+        />
+      )}
+      {isLoading && "Loading..."}
+      {showComments && !isLoading && !comments.length && "No comments yet."}
+      {showComments && (
+        <CommentList comments={comments} isLoading={isLoading} />
+      )}
     </section>
   );
 };

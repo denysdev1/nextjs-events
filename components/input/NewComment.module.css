@@ -40,3 +40,7 @@
 .form button {
   background-color: white;
 }
+
+.invalid {
+  color: white;
+}

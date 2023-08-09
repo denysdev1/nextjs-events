@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { NotificationContext } from "../../store//notificationContext";
 import classes from "./NewsletterRegistration.module.css";
 import axios from "axios";
 
 export const NewsletterRegistration = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [hasError, setHasError] = useState(false);
+  const { showNotification } = useContext(NotificationContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,9 +16,25 @@ export const NewsletterRegistration = () => {
       return;
     }
 
+    showNotification({
+      title: "Signing up...",
+      message: "Register for newsletter.",
+      status: "pending",
+    });
+
     try {
-      axios.post("api/newsletter", { email: enteredEmail });
+      await axios.post("api/newsletter", { email: enteredEmail });
+      showNotification({
+        title: "Success!",
+        message: "Successfully registered for newsletter!",
+        status: "success",
+      });
     } catch {
+      showNotification({
+        title: "Error!",
+        message: "Something went wrong!",
+        status: "error",
+      });
       throw new Error("Couldn't subscribe for newsletter!");
     }
 

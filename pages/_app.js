@@ -1,12 +1,14 @@
-import Head from "next/head";
 import Layout from "../components/layout/layout";
+import { NotificationContextProvider } from "../store/notificationContext";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <NotificationContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </NotificationContextProvider>
   );
 }
 

@@ -4,7 +4,6 @@ import classes from "./CommentList.module.css";
 export const CommentList = ({ comments }) => {
   return (
     <ul className={classes.comments}>
-      {!comments.length && <p>No comments yet</p>}
       {comments.map((comment) => (
         <CommentItem
           key={comment._id}
