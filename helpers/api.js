@@ -1,8 +1,8 @@
 const BASE_URL =
   "https://nextjs-events-a76c3-default-rtdb.europe-west1.firebasedatabase.app/";
 
-export const getAllEvents = async () => {
-  const response = await fetch(BASE_URL + "events.json");
+export const getAllEvents = async (options) => {
+  const response = await fetch(BASE_URL + "events.json", options);
   const data = await response.json();
   const transformedEvents = [];
 
@@ -13,22 +13,22 @@ export const getAllEvents = async () => {
   return transformedEvents;
 };
 
-export const getFeaturedEvents = async () => {
-  const events = await getAllEvents();
+export const getFeaturedEvents = async (options) => {
+  const events = await getAllEvents(options);
 
   return events.filter((event) => event.isFeatured);
 };
 
-export const getEventById = async (id) => {
-  const response = await fetch(BASE_URL + `events/${id}.json`);
+export const getEventById = async (id, options) => {
+  const response = await fetch(BASE_URL + `events/${id}.json`, options);
   const data = await response.json();
 
   return { id, ...data };
 };
 
-export const getFilteredEvents = async (dateFilter) => {
+export const getFilteredEvents = async (dateFilter, options) => {
   const { year, month } = dateFilter;
-  const events = await getAllEvents();
+  const events = await getAllEvents(options);
 
   const filteredEvents = events.filter((event) => {
     const eventDate = new Date(event.date);

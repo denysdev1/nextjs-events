@@ -1,8 +1,8 @@
-import { getAllEvents } from "../../helpers/api";
+'use client';
+
 import EventList from "../../components/events/EventList";
 import EventsSearch from "../../components/events/EventsSearch";
-import { useRouter } from "next/router";
-import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 const AllEventsPage = ({ events }) => {
   const router = useRouter();
@@ -17,13 +17,6 @@ const AllEventsPage = ({ events }) => {
 
   return (
     <>
-      <Head>
-        <title>All Events</title>
-        <meta
-          name="description"
-          content="Find a lot of great events that allow you to evolve..."
-        />
-      </Head>
       <EventsSearch handleSearch={handleSearch} />
       <EventList events={events} />
     </>
@@ -31,9 +24,3 @@ const AllEventsPage = ({ events }) => {
 };
 
 export default AllEventsPage;
-
-export const getStaticProps = async () => {
-  const events = await getAllEvents();
-
-  return { props: { events }, revalidate: 60 };
-};

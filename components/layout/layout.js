@@ -1,3 +1,5 @@
+"use client";
+
 import MainHeader from "./MainHeader";
 import Notification from "../ui/Notification";
 import { useContext } from "react";

@@ -61,7 +61,7 @@ export const Comments = ({ eventId }) => {
           setComments={setComments}
         />
       )}
-      {isLoading && "Loading..."}
+      {isLoading && showComments && "Loading..."}
       {showComments && !isLoading && !comments.length && "No comments yet."}
       {showComments && (
         <CommentList comments={comments} isLoading={isLoading} />
